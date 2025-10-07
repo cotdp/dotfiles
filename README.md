@@ -4,11 +4,13 @@ A curated collection of development environment configurations and Cursor IDE ru
 
 ## 🚀 Overview
 
-This repository contains my personal dotfiles and development configurations, with a focus on **Cursor IDE rules** that provide AI-assisted coding with best practices built-in. The configurations are designed for modern software development using TypeScript, Python, Next.js, and AI/LLM applications.
+This repository contains my personal dotfiles and development configurations, with a focus on **Cursor IDE rules** and **Claude Code slash commands** that provide AI-assisted coding with best practices built-in. The configurations are designed for modern software development using TypeScript, Python, Next.js, and AI/LLM applications.
 
 ### Key Features
 
 - 🤖 **AI-Enhanced Development**: Cursor IDE rules that guide AI assistants to follow best practices
+- ⚡ **Claude Code Slash Commands**: Systematic development workflow with `/plan`, `/cook`, `/continue`, `/release`
+- 📋 **TODO.md-Driven Development**: Centralized project roadmaps with progress tracking
 - 🎯 **Technology-Specific Rules**: Tailored configurations for TypeScript, Python, Next.js, and more
 - 🔒 **Security-First**: Built-in security practices and OWASP compliance
 - ⚡ **Performance-Optimized**: Configuration focused on clean, performant code
@@ -21,7 +23,16 @@ This repository contains my personal dotfiles and development configurations, wi
 ```
 dotfiles/
 ├── README.md                    # This file
-└── cursorrules/
+├── claude-code/                 # Claude Code configuration & slash commands
+│   ├── README.md               # Claude Code system overview
+│   ├── CLAUDE.md               # Core configuration and coding standards
+│   └── commands/               # Custom slash commands
+│       ├── README.md           # Detailed command documentation
+│       ├── plan.md             # /plan - Technical documentation analysis
+│       ├── cook.md             # /cook - Implementation execution
+│       ├── continue.md         # /continue - Resume interrupted work
+│       └── release.md          # /release - Production release preparation
+└── cursorrules/                 # Cursor IDE rules collection
     ├── README.md               # Cursor rules overview
     ├── 1_GENERAL.md           # Core development principles & git workflow
     ├── 2_TYPESCRIPT.md        # TypeScript/Next.js specific rules
@@ -75,11 +86,43 @@ dotfiles/
 - **Best Practices**: Server Components, client-side optimization
 - **Performance**: Code splitting, lazy loading, caching strategies
 
+## 🎯 Claude Code Configuration System
+
+The `claude-code/` directory contains a comprehensive Claude Code configuration system designed for systematic software development workflows.
+
+### Core Configuration (`CLAUDE.md`)
+- **Code Quality Standards**: Minimal, self-documenting, type-exact, secure, performant principles
+- **Technology Stack Preferences**: TypeScript/Next.js with bun, Python with uv, AI model selection
+- **Git Workflow Management**: Conventional commits and proactive remote synchronization
+- **Context-Aware Development**: Planning process with `<thinking>` tags and requirement analysis
+
+### Slash Commands System (`commands/`)
+
+| Command | Purpose | Usage |
+|---------|---------|-------|
+| `/plan` | Analyze documentation and create comprehensive TODO.md implementation plans | `/plan "Building a real-time chat application"` |
+| `/cook` | Execute tasks from TODO.md systematically with quality enforcement | `/cook "Focus on authentication features"` |
+| `/continue` | Resume interrupted work by assessing current state and completing tasks | `/continue "Fix failing tests and complete API"` |
+| `/release` | Prepare production releases with quality checks and version management | `/release "Urgent security patch"` |
+
+### Workflow Integration
+- **TODO.md-Driven Development**: Central implementation roadmap managed by all commands
+- **Dependency-Aware Execution**: Intelligent task ordering and prerequisite handling
+- **Quality Checkpoints**: Non-negotiable code standards enforced throughout
+- **Context-Guided AI**: Optional context arguments focus AI efforts on specific priorities
+
+### Key Features
+- **Systematic Development**: Plan → Cook → Continue → Release workflow
+- **Progress Tracking**: Real-time TODO.md updates with completion timestamps
+- **Quality Enforcement**: Built-in standards for security, performance, and maintainability
+- **Technology Integration**: Support for TypeScript/Next.js and Python project patterns
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - [Cursor IDE](https://cursor.sh/) - AI-first code editor
+- [Claude Code](https://claude.com/claude-code) - AI-powered development environment (for slash commands)
 - [bun](https://bun.sh/) - Fast JavaScript runtime and package manager
 - [uv](https://github.com/astral-sh/uv) - Fast Python package manager
 - [Git](https://git-scm.com/) - Version control system
@@ -109,7 +152,13 @@ dotfiles/
    cat ~/dotfiles/cursorrules/1_GENERAL.md ~/dotfiles/cursorrules/3_PYTHON.md > /path/to/your/project/.cursorrules
    ```
 
-3. **Cursor IDE will automatically detect and apply** the rules when you open the project.
+3. **Claude Code Configuration** (optional, for slash commands):
+   ```bash
+   # Copy Claude Code configuration to your project
+   cp -r ~/dotfiles/claude-code /path/to/your/project/.claude
+   ```
+
+4. **Cursor IDE will automatically detect and apply** the rules when you open the project.
 
 ### Project-Specific Setup
 
@@ -161,6 +210,25 @@ git add .
 git commit -m "feat: initial Python project setup"
 ```
 
+### Claude Code Slash Commands Workflow
+
+```bash
+# 1. Setup Claude Code configuration
+cp -r ~/dotfiles/claude-code .claude
+
+# 2. Analyze requirements and create implementation plan
+/plan "Building a REST API with user authentication and real-time features"
+
+# 3. Execute tasks systematically from TODO.md
+/cook "Focus on database setup and authentication first"
+
+# 4. Resume work after interruptions
+/continue "Complete the API endpoints and fix failing tests"
+
+# 5. Prepare for production release
+/release "Ready for production deployment"
+```
+
 ## 🎯 Key Principles
 
 ### Code Quality Hierarchy
@@ -173,9 +241,12 @@ git commit -m "feat: initial Python project setup"
 7. **Testable**: Designed for easy testing and maintenance
 
 ### Development Workflow
-- **Planning**: Use `<thinking>` tags to analyze requirements
+- **Planning**: Use `<thinking>` tags to analyze requirements or `/plan` for comprehensive roadmaps
+- **Implementation**: Systematic execution with `/cook` for TODO.md-driven development
+- **Continuation**: Resume interrupted work with `/continue` for intelligent task completion
+- **Release**: Production preparation with `/release` for quality-assured deployments
 - **Version Control**: Conventional commits with automatic git workflows
-- **Documentation**: Maintain `TODO.md` for project tracking
+- **Documentation**: Central `TODO.md` roadmaps with progress tracking
 - **Quality**: ESLint, Prettier, Ruff, and type checking enforced
 - **Security**: Input validation, environment management, secure defaults
 
@@ -205,13 +276,14 @@ git commit -m "feat: initial Python project setup"
 
 ## 📚 References
 
-- [Cursor IDE Documentation](https://cursor.sh/docs)
-- [Awesome Cursor Rules](https://github.com/PatrickJS/awesome-cursorrules)
-- [Conventional Commits](https://www.conventionalcommits.org/)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Python Best Practices](https://docs.python.org/3/tutorial/)
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Claude Code Documentation](https://claude.com/claude-code) - AI-powered development environment
+- [Cursor IDE Documentation](https://cursor.sh/docs) - AI-first code editor
+- [Awesome Cursor Rules](https://github.com/PatrickJS/awesome-cursorrules) - Community cursor rules
+- [Conventional Commits](https://www.conventionalcommits.org/) - Standardized commit messages
+- [Next.js Documentation](https://nextjs.org/docs) - React framework
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/) - Type-safe JavaScript
+- [Python Best Practices](https://docs.python.org/3/tutorial/) - Python development
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/) - Accessibility standards
 
 ## 📄 License
 
