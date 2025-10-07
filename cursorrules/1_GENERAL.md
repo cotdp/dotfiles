@@ -174,3 +174,72 @@ When working on tasks:
 - Update `TODO.md` after completing significant work
 - Provide brief summaries of completed work and any blockers
 - Suggest next logical steps based on dependencies
+
+# Usage of NanoID for public-facing unique IDs
+
+To use **NanoID** as public-facing unique IDs, generate them in your business logic and store as strings in your models. Below are concise best practices and minimal code snippets for both **TypeScript (NextJS/DrizzleORM)** and **Python (SQLAlchemy)** setups.
+
+## TypeScript / NextJS / DrizzleORM usage of NanoID
+
+- **Install NanoID**:  
+  ```bash
+  npm install nanoid
+  ```
+
+- **Generate IDs**:  
+  Use NanoID at the point of object creation (e.g., before inserting into DB).
+
+- **Example Model and Usage**:
+  ```typescript
+  import { nanoid } from 'nanoid'
+  import { drizzle } from 'drizzle-orm'
+  // ... your DB and schema setup
+
+  // Generate ID when creating new objects:
+  const userId = nanoid() // e.g., 'V1StGXR8_Z5jdHi6B-myT'
+  await db.insert(users).values({ id: userId, ...userData })
+  ```
+
+- **Set up with Zod or form validation, if needed:**  
+  ```typescript
+  import { z } from 'zod'
+  export const userSchema = z.object({
+    id: z.string().default(() => nanoid()),
+    // other fields...
+  })
+  ```
+
+## Python / SQLAlchemy usage of NanoID
+
+- **Install NanoID**:
+  ```bash
+  pip install nanoid
+  ```
+
+- **Generate IDs**:  
+  Call NanoID's `generate()` for primary or public fields.
+
+- **Example Model and Usage**:
+  ```python
+  from sqlalchemy import Column, String
+  from sqlalchemy.ext.declarative import declarative_base
+  from nanoid import generate
+
+  Base = declarative_base()
+
+  class User(Base):
+      __tablename__ = 'users'
+      id = Column(String(21), primary_key=True, default=generate)
+      # other fields...
+
+  # Usage: instance auto-generates ID or call generate() yourself
+  new_user = User()
+  session.add(new_user)
+  session.commit()
+  ```
+
+## General Usage Notes
+- **Store as VARCHAR/String** with adequate length (default NanoID: 21 chars).
+- **Never expose auto-incrementing PKs**; only expose NanoIDs publicly.
+- **Can customize alphabet/length if needed**, e.g. `nanoid(16)` in TS, `generate(size=16)` in Python.
+These patterns are fast, secure, and ideal for public-facing identifiers in modern web apps.
